@@ -42,7 +42,8 @@ class Recipe {
   }
 
   static async deleteRecipe(id) {
-    await db.query("DELETE FROM recipes WHERE id = ?", [id]);
+    const [result] = await db.query("DELETE FROM recipes WHERE id = ?", [id]);
+    return result;
   }
 }
 

@@ -32,9 +32,13 @@ class RecipeController {
       if (!titre || !type || !ingredient || !category_id) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const ress =  await Recipe.createRecipe(titre, type, ingredient, category_id);
+      const ress = await Recipe.createRecipe(
+        titre,
+        type,
+        ingredient,
+        category_id,
+      );
       res.status(201).json(ress);
-      
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
@@ -53,10 +57,12 @@ class RecipeController {
         titre,
         type,
         ingredient,
-        category_id
+        category_id,
       );
       if (updatedRecipe) {
-        res.status(200).json({"message": "Recette à été mise à jour avec succès"});
+        res
+          .status(200)
+          .json({ message: "Recette à été mise à jour avec succès" });
       } else {
         res.status(404).json({ message: "Recipe not found" });
       }
@@ -69,8 +75,8 @@ class RecipeController {
   static async deleteRecipe(req, res) {
     try {
       const { id } = req.params;
-      const resultat = await Recipe.deleteRecipe(id);
-      if (resultat) {
+      const result = await Recipe.deleteRecipe(id);
+      if (result.affectedRows > 0) {
         res.status(200).json({ message: "Recette supprimée avec succès" });
       } else {
         res.status(404).json({ message: "Recette non trouvée" });
