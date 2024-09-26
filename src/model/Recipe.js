@@ -25,10 +25,10 @@ class Recipe {
     return result;
   }
 
-  static async createRecipe(titre, type, ingredient) {
+  static async createRecipe(titre, type, ingredient, category_id) {
     const [result] = await db.query(
-      "INSERT INTO recipes (titre, type, ingredient) VALUES (?, ?, ?)",
-      [titre, type, ingredient],
+      "INSERT INTO recipes (titre, type, ingredient, category_id) VALUES (?, ?, ?, ?)",
+      [titre, type, ingredient, category_id],
     );
     return result;
   }

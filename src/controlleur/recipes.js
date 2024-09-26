@@ -28,12 +28,12 @@ class RecipeController {
 
   static async createRecipe(req, res) {
     try {
-      const { titre, type, ingredient } = req.body;
-      if (!titre || !type || !ingredient) {
+      const { titre, type, ingredient, category_id } = req.body;
+      if (!titre || !type || !ingredient || !category_id) {
         return res.status(400).json({ message: "All fields are required" });
       }
-       await Recipe.createRecipe(titre, type, ingredient);
-      res.status(201).json({"message": "Recette ajouter avec succès"});
+      const ress =  await Recipe.createRecipe(titre, type, ingredient, category_id);
+      res.status(201).json(ress);
       
     } catch (err) {
       console.error(err);
@@ -44,8 +44,8 @@ class RecipeController {
   static async updateRecipe(req, res) {
     try {
       const { id } = req.params;
-      const { titre, type, ingredient } = req.body;
-      if (!titre || !type || !ingredient) {
+      const { titre, type, ingredient, category_id } = req.body;
+      if (!titre || !type || !ingredient || !category_id) {
         return res.status(400).json({ message: "All fields are required" });
       }
       const updatedRecipe = await Recipe.updateRecipe(
@@ -53,9 +53,10 @@ class RecipeController {
         titre,
         type,
         ingredient,
+        category_id
       );
       if (updatedRecipe) {
-        res.status(200).json({"message": "Recette mise à jour avec succès"});
+        res.status(200).json({"message": "Recette à été mise à jour avec succès"});
       } else {
         res.status(404).json({ message: "Recipe not found" });
       }
@@ -68,11 +69,11 @@ class RecipeController {
   static async deleteRecipe(req, res) {
     try {
       const { id } = req.params;
-      const result = await Recipe.deleteRecipe(id);
-      if (result) {
-        res.status(204).end({"message": "Recette supprimée avec succès"});
+      const resultat = await Recipe.deleteRecipe(id);
+      if (resultat) {
+        res.status(200).json({ message: "Recette supprimée avec succès" });
       } else {
-        res.status(404).json({ message: "Recipe not found" });
+        res.status(404).json({ message: "Recette non trouvée" });
       }
     } catch (err) {
       console.error(err);
