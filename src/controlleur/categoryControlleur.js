@@ -1,9 +1,10 @@
-import category from "../model/Category.js";
+import Category from "../model/Category.js";
+
 
 class CategoryController {
   static async getAllCategory(req, res) {
     try {
-      const [category] = await category.getAllCategory();
+      const [category] = await Category.getAllCategory();
       res.status(200).json(category);
     } catch (err) {
       console.error(err);
@@ -14,7 +15,7 @@ class CategoryController {
   static async getCategoryById(req, res) {
     try {
       const { id } = req.params;
-      const recipe = await category.getCategoryById(id);
+      const recipe = await Category.getCategoryById(id);
       if (recipe) {
         res.status(200).json(recipe);
       } else {
@@ -32,10 +33,10 @@ class CategoryController {
       if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const res = await Recipe.createCategory(
+      const result = await Category.createCategory(
         name
       );
-      res.status(201).json(res);
+      res.status(201).json(result);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
@@ -49,7 +50,7 @@ class CategoryController {
       if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const updatedCategory = await category.updateCategory(
+      const updatedCategory = await Category.updateCategory(
         id,
         name
       );
@@ -69,7 +70,7 @@ class CategoryController {
   static async deleteCategory(req, res) {
     try {
       const { id } = req.params;
-      const result = await Recipe.deleteCategory(id);
+      const result = await Category.deleteCategory(id);
       if (result.affectedRows > 0) {
         res.status(200).json({ message: "Recette supprimée avec succès" });
       } else {

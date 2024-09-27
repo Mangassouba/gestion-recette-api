@@ -1,6 +1,6 @@
 import db from "../config/db.js";
 
-class Recipe {
+class Category {
   static async getAllCategory() {
     const results = await db.query("SELECT * FROM categorys");
     return results;
@@ -47,4 +47,4 @@ class Recipe {
   }
 }
 
-export default Recipe;
+export default Category;
