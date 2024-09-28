@@ -1,7 +1,7 @@
 import Recipe from "../model/Recipe.js";
 
 class RecipeController {
-  static async getAllRecipes(req, res) {
+  static async getAllRecipes(_req, res) {
     try {
       const [recipes] = await Recipe.getAllRecipes();
       res.status(200).json(recipes);

@@ -10,7 +10,7 @@ const corsOptions = {
 };
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors('*',corsOptions));
 const port = 3070;
 app.use(bodyParser.json());
 app.use(recipeRoutes);
