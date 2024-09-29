@@ -1,6 +1,6 @@
 import { check, param, validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
-import Category from "../model/Category.js";
+import Category from "../models/Category.js";
 
 const addRequestValidator = [
   check("name")
@@ -8,8 +8,8 @@ const addRequestValidator = [
     .isEmpty()
     .withMessage("nom ne peut pas être vide!")
     .bail()
-    .isLength({ min: 6 })
-    .withMessage("Minimum 6 caractères requis!")
+    .isLength({ min: 3 })
+    .withMessage("Minimum 3 caractères requis!")
     .bail()
     .custom(async (value) => {
       const result = await Category.getCategoryByTitle(value);

@@ -1,6 +1,6 @@
 import { check, param, validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
-import Recipe from "../model/Recipe.js";
+import Recipe from "../models/Recipe.js";
 
 const addRequestValidator = [
   check("titre")
@@ -8,8 +8,8 @@ const addRequestValidator = [
     .isEmpty()
     .withMessage("Titre ne peut pas être vide!")
     .bail()
-    .isLength({ min: 6 })
-    .withMessage("Minimum 6 caractères requis!")
+    .isLength({ min: 3 })
+    .withMessage("Minimum 3 caractères requis!")
     .bail()
     .custom(async (value) => {
       const result = await Recipe.getRecipeByTitle(value);

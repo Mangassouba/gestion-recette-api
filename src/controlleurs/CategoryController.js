@@ -1,20 +1,21 @@
-import Recipe from "../model/Recipe.js";
+import Category from "../models/Category.js";
 
-class RecipeController {
-  static async getAllRecipes(_req, res) {
+
+class CategoryController {
+  static async getAllCategory(req, res) {
     try {
-      const [recipes] = await Recipe.getAllRecipes();
-      res.status(200).json(recipes);
+      const [category] = await Category.getAllCategory();
+      res.status(200).json(category);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
 
-  static async getRecipeById(req, res) {
+  static async getCategoryById(req, res) {
     try {
       const { id } = req.params;
-      const recipe = await Recipe.getRecipeById(id);
+      const recipe = await Category.getCategoryById(id);
       if (recipe) {
         res.status(200).json(recipe);
       } else {
@@ -26,40 +27,34 @@ class RecipeController {
     }
   }
 
-  static async createRecipe(req, res) {
+  static async createCategory(req, res) {
     try {
-      const { titre, type, ingredient, category_id } = req.body;
-      if (!titre || !type || !ingredient || !category_id) {
+      const { name } = req.body;
+      if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const ress = await Recipe.createRecipe(
-        titre,
-        type,
-        ingredient,
-        category_id,
+      const result = await Category.createCategory(
+        name
       );
-      res.status(201).json(ress);
+      res.status(201).json(result);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
 
-  static async updateRecipe(req, res) {
+  static async updateCategory(req, res) {
     try {
       const { id } = req.params;
-      const { titre, type, ingredient, category_id } = req.body;
-      if (!titre || !type || !ingredient || !category_id) {
+      const { name } = req.body;
+      if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const updatedRecipe = await Recipe.updateRecipe(
+      const updatedCategory = await Category.updateCategory(
         id,
-        titre,
-        type,
-        ingredient,
-        category_id,
+        name
       );
-      if (updatedRecipe) {
+      if (updatedCategory) {
         res
           .status(200)
           .json({ message: "Recette à été mise à jour avec succès" });
@@ -72,10 +67,10 @@ class RecipeController {
     }
   }
 
-  static async deleteRecipe(req, res) {
+  static async deleteCategory(req, res) {
     try {
       const { id } = req.params;
-      const result = await Recipe.deleteRecipe(id);
+      const result = await Category.deleteCategory(id);
       if (result.affectedRows > 0) {
         res.status(200).json({ message: "Recette supprimée avec succès" });
       } else {
@@ -88,4 +83,4 @@ class RecipeController {
   }
 }
 
-export default RecipeController;
+export default CategoryController;
