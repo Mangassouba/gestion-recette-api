@@ -33,10 +33,10 @@ class Recipe {
     return result;
   }
 
-  static async updateRecipe(id, titre, type, ingredient) {
+  static async updateRecipe(id, titre, type, ingredient,category_id) {
     const result = await db.query(
-      "UPDATE recipes SET titre = ?, type = ?, ingredient = ? WHERE id = ?",
-      [titre, type, ingredient, id],
+      "UPDATE recipes SET titre = ?, type = ?, ingredient = ?, category_id = ? WHERE id = ?",
+      [titre, type, ingredient, category_id, id],
     );
     return result;
   }
