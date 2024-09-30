@@ -1,5 +1,5 @@
 import express from "express";
-import RecipeController from "../controlleur/recipes.js";
+import RecipeController from "../controlleurs/RecipeController.js";
 import {
   addRequestValidator,
   deleteRequestValidator,

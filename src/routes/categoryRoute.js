@@ -1,5 +1,5 @@
 import express from "express";
-import CategoryController from "../controlleur/categoryControlleur.js";
+import CategoryController from "../controlleurs/CategoryController.js";
 import {
   addRequestValidator,
   deleteRequestValidator,
