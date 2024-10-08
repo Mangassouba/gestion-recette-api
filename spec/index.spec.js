@@ -1,16 +1,21 @@
-import Recipe from "../src/model/Recipe.js";
-import Category from "../src/model/Category.js";
+import Recipe from "../src/models/Recipe.js";
+import Category from "../src/models/Category.js";
 
 describe("Recipe tests", () => {
   let recipeId = null;
 
   it("can be create", async () => {
-    const recipe = { titre: "crepe", type: "dessert", ingredient: "farine", category_id:1 };
+    const recipe = {
+      titre: "crepe",
+      type: "dessert",
+      ingredient: "farine",
+      category_id: 1,
+    };
     const result = await Recipe.createRecipe(
       recipe.titre,
       recipe.type,
       recipe.ingredient,
-      recipe.category_id
+      recipe.category_id,
     );
     recipeId = result.insertId;
     const recipeCreated = await Recipe.getRecipeById(recipeId);
@@ -67,15 +72,12 @@ describe("Recipe tests", () => {
   });
 });
 
-
 describe("Category tests", () => {
   let categoryId = null;
 
   it("can be create Category", async () => {
     const recipe = { name: "crepe" };
-    const result = await Category.createCategory(
-      recipe.name
-    );
+    const result = await Category.createCategory(recipe.name);
     categoryId = result.insertId;
     const categoryCreated = await Category.getCategoryById(categoryId);
     expect(categoryId).not.toBeNull();
@@ -85,9 +87,7 @@ describe("Category tests", () => {
   it("can not be create Category", async () => {
     try {
       const recipe = { name: null };
-      const result = await Category.createCategory(
-        recipe.titre
-      );
+      const result = await Category.createCategory(recipe.titre);
       categoryId = result.insertId;
       const recipeCreated = await Category.getCategoryById(categoryId);
       expect(categoryId).toBeNull();
@@ -118,10 +118,7 @@ describe("Category tests", () => {
       name: "crepe",
       ingredient: "farine",
     };
-    const update = await Category.updateCategory(
-      category.id,
-      category.name
-    );
+    const update = await Category.updateCategory(category.id, category.name);
     expect(update).not.toBeNull();
   });
 });
