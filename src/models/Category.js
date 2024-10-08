@@ -21,15 +21,16 @@ class Category {
   }
 
   static async getCategoryById(id) {
-    const [result] = await db.query("SELECT * FROM categorys WHERE id = ?", [id]);
+    const [result] = await db.query("SELECT * FROM categorys WHERE id = ?", [
+      id,
+    ]);
     return result;
   }
 
   static async createCategory(name) {
-    const [result] = await db.query(
-      "INSERT INTO categorys (name) VALUES (?)",
-      [name],
-    );
+    const [result] = await db.query("INSERT INTO categorys (name) VALUES (?)", [
+      name,
+    ]);
     return result;
   }
 

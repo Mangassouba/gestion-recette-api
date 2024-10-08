@@ -1,6 +1,5 @@
 import Category from "../models/Category.js";
 
-
 class CategoryController {
   static async getAllCategory(req, res) {
     try {
@@ -33,9 +32,7 @@ class CategoryController {
       if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const result = await Category.createCategory(
-        name
-      );
+      const result = await Category.createCategory(name);
       res.status(201).json(result);
     } catch (err) {
       console.error(err);
@@ -50,10 +47,7 @@ class CategoryController {
       if (!name) {
         return res.status(400).json({ message: "All fields are required" });
       }
-      const updatedCategory = await Category.updateCategory(
-        id,
-        name
-      );
+      const updatedCategory = await Category.updateCategory(id, name);
       if (updatedCategory) {
         res
           .status(200)

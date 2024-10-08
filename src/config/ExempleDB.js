@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -9,16 +9,19 @@ const connPool = mysql.createPool({
   port: process.env.DB_PORT,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
- 
+
   waitForConnections: true,
   connectionLimit: 10,
   connectTimeout: 10000,
 });
 
-connPool.getConnection().then(() => {
-  console.log('CONNECTED');
-}).catch(err => {
-  console.error('Error connecting to the database:', err);
-});
+connPool
+  .getConnection()
+  .then(() => {
+    console.log("CONNECTED");
+  })
+  .catch((err) => {
+    console.error("Error connecting to the database:", err);
+  });
 
 export default connPool;
