@@ -8,12 +8,12 @@ const addRequestValidator = [
     .isEmpty()
     .withMessage("nom ne peut pas être vide!")
     .bail()
-    .isLength({ min: 3 })
-    .withMessage("Minimum 3 caractères requis!")
+    .isLength({ min: 5, max:100 })
+    .withMessage("Le nom doit contenir entre 5 et 100 caractères !")
     .bail()
     .custom(async (value) => {
       const result = await Category.getCategoryByTitle(value);
-      if (result == 0) {
+      if (result) {
         throw new Error("Cette nom existe déjà!");
       }
       return true;
@@ -90,8 +90,8 @@ const updateValidator = [
     }),
   check("name")
     .optional()
-    .isLength({ min: 6 })
-    .withMessage("Le titre doit contenir au moins 6 caractères."),
+    .isLength({ min: 5, max:100 })
+    .withMessage("Le nom doit contenir entre 5 et 100 caractères !"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
